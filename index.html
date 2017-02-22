@@ -21,7 +21,7 @@
 				var longit=$("#longitud").val();
 				$.ajax({
 					type:"POST",
-					url:"http://www.cesarmovil.esy.es",
+					url:"http://www.cesarmovil.esy.es/Guardar.php",
 					data:"Nom="+nom+"&Dir="+dir+"&Rfc="+rfc+"&Tel="+tel+"&Clasif="+clasif+"&Foto="+foto+"&Lat="+lat+"&Long="+longit,
 					success:function respuesta(datos) {
 						alert(datos);
@@ -33,7 +33,7 @@
 				//alert("Funciona");
 				$.ajax({
 					type:"POST",
-					url:"http://www.cesarmovil.esy.es",
+					url:"http://www.cesarmovil.esy.es/Consulta.php",
 					data:"",
 					success:function CosultaTodo(datos){
 						var reg=$.parseJSON(datos);
