@@ -11,7 +11,7 @@
 		$(document).ready(function (){
 			/*****evento para guardar servicios*****/
 			$("#btnGuardar").tap(function (){
-				//alert("Funciona click");
+				alert("Funciona guardar click");
 				var nom=$("#Nombre").val();
 				var dir=$("#Direccion").val();
 				var rfc=$("#RFC").val();
@@ -31,7 +31,7 @@
 			});
 
 			$("#btnConsServ").tap(function (){
-				//alert("Funciona");
+				alert("Funciona");
 				$.ajax({
 					type:"POST",
 					url:"http://www.cesarmovil.esy.es/Consulta.php",
