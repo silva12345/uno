@@ -68,8 +68,109 @@ function onDeviceReady(){
 				}
 			});
 		});
+		/*$("#btnEliminar").tap(function (){
+			var id=$("#txtIDElimina").val();
+			alert("Funciona  var");
+					
+			$.ajax({
+				type:"POST",
+				url:"Eliminar.php",
+				data:"ID="+id,
+				success:function (datos) {
 
-		/******************/
+					alert("Datos ");
+
+				}
+			});
+		});*/
+
+		/**********eliminar********/
+		$("#btnConsServ1").tap(function (){
+			$.ajax({
+				type:"POST",
+				url:"http://hpcshmovil.esy.es/Consulta.php",
+				data:"",
+				success:function (datos) {
+					var reg=$.parseJSON(datos);
+					var fila=$("#datosTodos1");
+					 for(var i in reg){
+					 	fila.append("<tr><td>"+reg[i].Id_Servicio+"</td><td>"+reg[i].Nombre_servicio+"</td><td>"+reg[i].Direcccion+"</td><td>"+reg[i].RFC+"</td><td>"+reg[i].Telefono+"</td><td>"+reg[i].Clasificacion+"</td><td>"+reg[i].Foto+"</td><td>"+reg[i].Latitud+"</td><td>"+reg[i].Longitud+"</td></tr>");
+					 }
+					$("#tb3").table("refresh");
+				}
+			});
+		});
+		/*********************/
+		$("#btnEliminar1").tap(function (){
+			var id=$("#txtIDElimina1").val();
+			alert("Funciona  var");
+					
+			$.ajax({
+				type:"POST",
+				url:"http://hpcshmovil.esy.es/Eliminar.php",
+				data:"ID="+id,
+				success:function (datos) {
+			alert("Datos Eliminados");
+
+				}
+			});
+		});
+		/*****Actualizar****/
+		/////*********LAS MODIFICACIONES QUE SE HICIERON CON EL PROFE ALEX****/////////////
+ 		$("#btnConsAct").tap(function (){
+ 			var id=$("#txtActu").val();
+ 			$.ajax({
+ 				type:"POST",
+ 				url:"http://hpcshmovil.esy.es/ConsultaID.php",
+ 				data:"ID="+id,
+ 				success:function(datos){
+ 					var reg=$.parseJSON(datos);
+					var controles=$("#controlesForm");
+					controles.html('ID:<input type="text" id="txtId"><br>Nombre Servicio:<input type="text" id="txtNombre"><br>Dirección:<input type="text" id="txtDireccion" ><br>RFC:<input type="text" id="txtRFC" ><br>Telefono:<input type="text" id="txtTelefono" ><br>Clasificación:<input type="text" id="txtClasificacion" ><br>Foto:<input type="text" id="txtFoto" ><br>Latitud:<input type="text" id="txtLatitud" ><br>Longitud:<input type="text" id="txtLongitud" >');
+					/*
+controles.html('ID:<input type="text" id="txtId"><br>Nombre Servicio:<input type="text" id="txtNombre"><br>Dirección:<input type="text" id="txtDireccion" ><br>RFC:<input type="text" id="txtRFC" ><br>Telefono:<input type="text" id="txtTelefono" ><br>Clasificación:<input type="text" id="txtClasificacion" ><br>Foto:<input type="text" id="txtFoto" ><br>Latitud:<input type="text" id="txtLatitud" ><br>Longitud:<input type="text" id="txtLongitud" >');
+					*/
+alert("datos");
+					$("#txtId").val(reg[0].Id_Servicio);
+					$("#txtNombre").val(reg[0].Nombre_servicio);
+					$("#txtDireccion").val(reg[0].Direcccion);
+					$("#txtRFC").val(reg[0].RFC);
+					$("#txtTelefono").val(reg[0].Telefono);
+					$("#txtClasificacion").val(reg[0].Clasificacion);
+					$("#txtFoto").val(reg[0].Foto);
+					$("#txtLatitud").val(reg[0].Latitud);
+					$("#txtLongitud").val(reg[0].Longitud);
+					/****CADA CAMPO DE TEXTO VA SER IGUAL AL CAMPO DE TU BASE DE DATOS *****/
+ 				}	
+ 			});
+ 		});
+/*******FIN DE LA MODIFICACION********/
+//******evento para actualizar******////////////
+$("#btnActualizar").tap(function (){	
+			alert("funciona");
+			var id1=$("#txtId").val();
+
+			var nom1=$("#txtNombre").val();
+			var dir1=$("#txtDireccion").val();
+			var rfc1=$("#txtRFC").val();
+			var tel1=$("#txtTelefono").val();
+			var clasif1=$("#txtClasificacion").val();
+			var foto1=$("#txtFoto");
+			var lat1=$("#latitud").val();
+			var longit1=$("#txtLongitud").val();
+			alert("Funciona actualizar");								
+			$.ajax({
+				type:"POST",
+				url:"http://hpcshmovil.esy.es/Actualizar.php",
+				data:"ID1="+id1+"&Nom1="+nom1+"&Dir1="+dir1+"&Rfc1="+rfc1+"&Tel1="+tel1+"&Clasif1="+clasif1+"&Foto1="+foto1+"&Lat1="+lat1+"&Long1="+longit1,
+				success:function (datos) {
+					alert("Datos guardados correctamente: "+datos);
+				}
+			});
+		});
+
+////*************/////////
+
 	/***********Obtener Coordenadas***********************/
 	$("#btnCords").tap(function(){//Obtener coordenadas para el registro de servicios			
   		obtenerUbicacion();
@@ -167,6 +268,7 @@ function onDeviceReady(){
 		</div>	
 		<div data-role="content">
 			<input type="button" id="btnConsServ" value="Consultar Todos los Servicios">
+			
 			<div>
 			<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="tb1">
 				<thead id="datosTodos">
@@ -197,7 +299,8 @@ function onDeviceReady(){
 			<p>Consultar por ID</p>
 		</div>	
 		<div data-role="content">
-		<input type"text" id="txtIDServ" placeholder"Escribe el nombre de ID del servicio">
+		
+		<input type="text" id="txtIDServ" placeholder="Escribe el ID del servicio a búscar">
 			<input type="button" id="btnConsID" value="Consultar Servicio">
 			<div>
 			<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="tb2">
@@ -223,5 +326,58 @@ function onDeviceReady(){
 			<p><a href="#Principal" class="ui-btn ui-icon-home ui-btn-icon-left">Regresar</a></p>
 		</div>
 	</div>
+
+
+<div data-role="page" id="Eliminar">
+		<div data-role="header">
+			<p>Eliminar Datos</p>
+		</div>	
+		<div data-role="content">
+			
+			<input type="text" id="txtIDElimina1" placeholder="Escribe el ID a eliminar">
+			<input type="button" id="btnEliminar1" value="Eliminar Servicios">
+			<input type="button" id="btnConsServ1" value="Consultar Todos los Servicios">
+			<div>
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="tb3">
+				<thead id="datosTodos1">
+					<tr>
+						<th data-priority="1">Id</th>
+						<th data-priority="2">Nombre</th>
+						<th data-priority="3">Direción</th>
+						<th data-priority="4">RFC</th>
+						<th data-priority="5">Tel:</th>
+						<th data-priority="6">Clasif</th>
+						<th data-priority="7">Foto</th>
+						<th data-priority="8">Lat</th>
+						<th data-priority="9">Long</th>
+					</tr>
+				</thead>				
+				<tbody id="datosTodos1">
+				</tbody>
+			</table>
+			</div>
+		</div>
+		<div data-role="footer">
+			<p><a href="#Principal" class="ui-btn ui-icon-home ui-btn-icon-left">Regresar</a></p>
+		</div>
+	</div>
+	<!--MODIFICACION PARA LA VENTANA DE ACTUALIZAR-->
+<div data-role="page" id="Actualizar">
+		<div data-role="header">
+			<p>Actualizar servicio por ID</p>
+		</div>	
+		<div data-role="content">
+			
+			<input type="text" id="txtActu" placeholder="Escribe el nombre">
+			<input type="button" id="btnConsAct" value="Consultar Servicios">
+			<div id="controlesForm"></div>
+
+			<input type="button" id="btnActualizar" value="Actualizar servicios">
+		</div>
+		<div data-role="footer">
+			<p><a href="#Principal" class="ui-btn ui-icon-home ui-btn-icon-left">Regresar</a></p>
+		</div>
+	</div>
+	<!-- FIN DE LA MODIFICACION PARA LA VENTANA DE ACTUALIZAR-->
 </body>
 </html>
